@@ -1,0 +1,627 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20px;
+    height: 70px;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    z-index: 1000; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    border-bottom: 2px solid #275ec3;
+}
+
+/* Push the content down so it doesn't sit under the fixed navbar */
+body {
+    padding-top: 70px; /* This should be equal or greater than the total height of the navbar */
+}
+
+.navbar-logo {
+    width: 240px;
+    padding-left: 80px;
+    /* Removed padding-top as it's no longer needed */
+}
+
+.navbar-menu {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-grow: 1;
+    /* Removed margin-top as it's no longer needed */
+    padding-right: 20px;
+}
+
+
+.navbar a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: #275ec3;
+}
+
+
+.navbar-menu a.active {
+    color: #275ec3; 
+    background-color: #e0e0e0; 
+    border-bottom: 2px solid blue; 
+}
+
+#home {
+  height: 625px; 
+  width: 100%; 
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  position: relative;
+  overflow: hidden; 
+  background-image: url('../logo/homeig4.jpg'); /* Adding the background image */
+  background-size: cover; /* This will ensure the image covers the entire div */
+  background-position: center; /* This will center the image in the div */
+  background-repeat: no-repeat; /* This will prevent the image from repeating */
+}
+
+
+.animated-text {
+    position: absolute; 
+    left: 50%; 
+    top: 50%; 
+    transform: translate(-50%, -50%); 
+    color: black;
+    font-size: 3rem; 
+    line-height: 1.2; 
+    padding: 20px; 
+    height: 60%;
+    width: 80%;  
+    max-width: 1200px; 
+    box-sizing: border-box; 
+    /* color:#275ec3; */
+    color:rgb(255, 255, 255);
+    font-size: 60px;
+    font-family: 'Roboto'; 
+    text-align: center; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: rgba(86, 112, 215, 0.8); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    min-height: 100px; 
+    -webkit-text-stroke-width: 0.01px; /* width of the stroke */
+    -webkit-text-stroke-color: black; /* color of the stroke */
+    text-shadow:
+        1px 1px 0 #000, /* Horizontal shadow, Vertical shadow, Blur radius, Color */
+       -1px -1px 0 #000, /* Adding multiple shadows for a more defined edge */
+        1px -1px 0 #000,
+       -1px 1px 0 #000,
+        1px 1px 0 #000;
+
+}
+
+.animated-text span {
+    vertical-align: top;
+    min-height: 1.2em; 
+    display: inline-block; 
+}
+
+@keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  
+  .cursor {
+    display: inline-block;
+    margin-left: 2px;
+    background-color: currentColor; 
+    width: 2px;
+    height: 1em; 
+    animation: blink 1s step-start infinite;
+  }
+  #factor, #impacts, #future {
+    opacity: 0; 
+}
+
+/* digitalization section css */
+#digitalization {
+    background-color: white;
+    min-height: 725px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    box-sizing: border-box;
+    gap: 40px; 
+    box-sizing: border-box;
+    font-family: 'Roboto';
+    border-top: 5px solid #275ec3; 
+  border-bottom: 5px solid #275ec3;
+  }
+  
+  .content-box {
+    flex: 1; 
+    display: flex; 
+  flex-direction: column; 
+
+  }
+  #digitalization h2 {
+    color: #275ec3; 
+    font-size: 2rem; 
+    font-weight: bold; 
+    margin: 0 0 20px 0; 
+  }
+  #digitalization p {
+    font-size: 1rem; 
+    color: #000; 
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-family:"Lato"; 
+  }
+  .content {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    padding: 36 px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height:500px;
+    padding: 20px;
+    align-self: stretch; 
+    width: 90% !important
+  }
+  
+  .content:hover {
+    transform: translateY(-20px) scale(1.03); 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); 
+    border-color: #6495ED; 
+  }
+ 
+  @media (max-width: 1024px) {
+    #digitalization {
+      flex-direction: column;
+    }
+    
+    .content-box {
+      max-width: 100%;
+      margin-bottom: 20px; 
+    }
+    
+    #digitalization {
+      padding: 20px;
+    }
+  }
+  
+  /* factors design */
+  /* Base Layout */
+/* General Layout Adjustments */
+.plot-container {
+  background-color: #fff;
+  height: 90vh !important;
+
+  overflow: hidden;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* Adjust the alignment as needed */
+  height: auto;
+}
+.guide-container {
+  background: #f9f9f9; /* A softer background color */
+  width: 25%;
+  margin-right: 2%;
+  margin-top: 1%;
+  min-height: 150px;
+  max-height: 82vh;
+  padding: 20px;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 3px solid #005a9e; /* Updated border color */
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Softer shadow */
+  overflow: hidden;
+  transform: translateY(-50px);
+  animation: enterGuide 0.5s ease-out forwards, float 5s ease-in-out infinite;
+}
+
+@keyframes enterGuide {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.guide-container h2 {
+  color: #005a9e;
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Updated font */
+  animation: slideIn 0.5s 0.5s ease-out forwards;
+}
+
+.guide-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.guide-container li {
+  background: linear-gradient(145deg, #6ba8e5, #1E90FF); 
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  position: relative;
+  left: -300px;
+  animation: slideIn 0.5s ease-out forwards;
+  animation-delay: calc(0.1s * var(--i));
+  max-height: 10%; 
+  overflow: hidden; 
+  
+}
+
+.guide-container li:hover {
+  background: #3a80d6; /* Darker gradient on hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.5s ease; /* Deeper shadow for a "lifted" effect */
+}
+
+@keyframes slideIn {
+  to { left: 0; }
+}
+
+/* Updated spinning animation for a more subtle and sophisticated look */
+#guide-container::before,
+#guide-container::after {
+  content: '';
+  position: absolute;
+  top: -25%;
+  right: -25%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+  width: 150%;
+  height: 150%;
+  border-radius: 50%;
+  z-index: -1;
+  animation: spin 60s linear infinite;
+}
+
+#guide-container::after {
+  top: auto;
+  bottom: -25%;
+  right: auto;
+  left: -25%;
+  background: radial-gradient(circle, transparent, rgba(255,255,255,0.2));
+  animation-direction: reverse;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Updated float animation for a more natural feel */
+@keyframes float {
+  0%, 100% { transform: translateY(-5px); }
+  50% { transform: translateY(5px); }
+}
+
+.section1 {
+    text-align: center;
+    padding: 40px;
+  }
+
+  .centered {
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .icon-bg {
+    display: inline-block;
+    background: #e6e6e6;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .icon {
+    width: 80px;
+    height: 80px;
+  }
+  
+  h2 {
+    color: #005792;
+    font-size: 2.5em;
+    margin-top: 20px;
+    margin-bottom: 30px; /* Increased space between the title and subtitle */
+  }
+  
+  .psep{
+    font-size: 1.8em; 
+    color: #000; 
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-weight: bold;
+    font-family: "Roboto";
+    margin-bottom: 50px;
+  }
+
+  .sec{
+    font-size: 1.8em; 
+    color: #000; 
+    margin-top: 10px;
+    font-weight: bold;
+    font-family: "Roboto";
+  }
+  #factor_2 p {
+    font-size: 1.8em; 
+    color: #000; 
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-weight: bold;
+    font-family: "Roboto";
+    padding-top: 5%;
+    padding-bottom: 5%; 
+}
+#factor_3 p {
+  font-size: 1.8em;
+  color: #000;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-family: "Roboto";
+  padding-top: 5%; 
+  padding-bottom: 5%; 
+}
+#factor_4  {
+  font-size: 1.8em;
+  color: #000;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-family: "Roboto";
+  padding-top: 5%; 
+  padding-bottom: 5%; 
+}
+#factor_5  {
+  font-size: 1.8em;
+  color: #000;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-family: "Roboto";
+  padding-top: 5%; 
+  padding-bottom: 5%; 
+}
+#Improvements_1 {
+  font-size: 1.8em;
+  color: #000;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-family: "Roboto";
+  padding-top: 5%; 
+  padding-bottom: 5%; 
+}
+  #line_plot {
+    background-color: #fff;
+    height: 70vh !important;
+    width: 85% !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left:5%;
+    margin-right: auto;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+  #bar_plot
+  {
+    background-color: #fff;
+    height: 70vh !important;
+    width: 85% !important;
+   box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left:5%;
+    margin-right: auto;
+  }
+  #heat_plot
+  {
+    background-color: #fff;
+    height: 70vh !important;
+    width: 90% !important;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left:5%;
+    margin-right: auto;
+  }
+
+  #sankey_plot
+  {
+    background-color: #fff;
+    height: 70vh !important;
+    width: 85% !important;
+     box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left:5%;
+    margin-right: auto;
+    margin-bottom: 20px;
+    
+  }
+  #scatter_plot
+  {
+    background-color: #fff;
+    height: 70vh !important;
+    width: 90% !important;
+     box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left:2%;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  #pie_plot
+  {
+    background-color: #fff;
+    height: 70vh !important;
+    width: 85% !important;
+   box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left:5%;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  #Improvements_2 {
+    font-size: 1.8em;
+    color: #000;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-weight: bold;
+    font-family: "Roboto";
+    padding-top: 5%; 
+    padding-bottom: 5%; 
+}
+#map_plot {
+    background-color: #fff;
+    height: 75vh; /* Height of the container */
+    width: 90% !important;
+    /* box-shadow: 0 4px 8px rgba(0,0,0,0.2); */
+    border-radius: 8px; 
+    overflow: hidden;
+    margin-left:5%;
+    margin-right: auto;
+    display: flex; /* Ensures content is centered */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+#Improvements_3 {
+  font-size: 1.8em;
+  color: #000;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-family: "Roboto";
+  padding-top: 5%; 
+  padding-bottom: 5%; 
+}
+#lolli_plot {
+  background-color: #fff;
+  height: 105vh !important; /* Height of the container */
+  width: 90% !important; /* Maximum width */
+   /* box-shadow: 0 4px 8px rgba(0,0,0,0.2); */
+  border-radius: 8px; 
+  overflow: hidden;
+  margin-left:5%;
+  margin-right: auto;
+  display: flex; /* Ensures content is centered */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.section2 {
+  text-align: center;
+  padding: 40px;
+}
+.section3 {
+  text-align: center;
+  padding: 40px;
+}
+
+#impact_1 {
+  font-size: 1.8em;
+  color: #000;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-family: "Roboto";
+  padding-top: 5%; 
+  padding-bottom: 5%; 
+}
+#treemap_plot {
+  padding-left: 5% !important;
+  background-color: #fff;
+  height: 105vh !important; /* Height of the container */
+  width: 85% !important; /* Maximum width */
+   /* box-shadow: 0 4px 8px rgba(0,0,0,0.2); */
+  border-radius: 8px; 
+  overflow: hidden;
+  margin-left:5%;
+  margin-right: auto;
+  display: flex; /* Ensures content is centered */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+#impact_2 {
+  font-size: 1.8em;
+  color: #000;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-family: "Roboto";
+  padding-top: 5%; 
+  padding-bottom: 5%; 
+}
+#stacked_plot {
+  padding-left: 5% !important;
+  background-color: #fff;
+  height: 105vh !important; /* Height of the container */
+  width: 85% !important; /* Maximum width */
+  /*  /* box-shadow: 0 4px 8px rgba(0,0,0,0.2); */
+  border-radius: 8px; 
+  overflow: hidden;
+  margin-left:5%;
+  margin-right: auto;
+  display: flex; /* Ensures content is centered */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .icon {
+      width: 60px;
+      height: 60px;
+    }
+  
+    h2 {
+      font-size: 2em;
+    }
+  
+    p {
+      font-size: 1.4em;
+    }
+  
+    .icon-bg {
+      padding: 8px;
+    }
+  }
