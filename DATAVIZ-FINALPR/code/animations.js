@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // ANIMATION FOR HOVERING EFFECT ON THE NAV BAR WHEN LINKED SECTIONS DISPLAYED
 document.addEventListener('DOMContentLoaded', () => {
-  const navLinks = document.querySelectorAll('.navbar-menu a');
-  const sections = document.querySelectorAll('.home-section, .section, .section1, .section2');
+  const navLinks = document.querySelectorAll('.navbar a');
+  const sections = document.querySelectorAll('#home, .section, .section1, .section2');
 
   function getActiveSection() {
       let maxSection = sections[0];
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const activeSection = getActiveSection();
       const activeLinkId = `#${activeSection.id}`;
-      const newActiveLink = document.querySelector(`.navbar-menu a[href="${activeLinkId}"]`);
+      const newActiveLink = document.querySelector(`.navbar a[href="${activeLinkId}"]`);
 
       navLinks.forEach(link => {
           link.classList.remove('active');
