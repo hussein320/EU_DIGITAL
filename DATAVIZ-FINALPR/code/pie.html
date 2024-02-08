@@ -188,9 +188,14 @@
     </div>
 
     <script>
-      var margin = { top: 7, right: 180, bottom: 60, left: 160 },
-        width = 1060 - margin.left - margin.right,
-        height = 380 - margin.top - margin.bottom;
+      let width = window.innerWidth * 1,
+        height = window.innerHeight * 0.8,
+        margin = {
+          top: window.innerHeight * 0.05,
+          right: window.innerHeight * 0.1,
+          bottom: window.innerHeight * 0.05,
+          left: window.innerWidth * 0.05,
+        };
 
       // Remove any existing SVG to prevent duplicates
       d3.select("#my_dataviz").select("svg").remove();
@@ -853,9 +858,9 @@
           svg.selectAll("*").remove();
 
           // Recalculate width and height to center the pie chart
-          var pieWidth = width / 1.1 - margin.left - margin.right - 30,
-            pieHeight = height - margin.top - margin.bottom - 30,
-            radius = Math.min(pieWidth, pieHeight) - 80;
+          var pieWidth = width / 4,
+            pieHeight = height / 1.7,
+            radius = Math.min(pieWidth, pieHeight);
           svg
             .attr("width", pieWidth)
             .attr("height", pieHeight)
@@ -900,7 +905,7 @@
             .append("g")
             .attr(
               "transform",
-              `translate(${pieWidth + 50}, ${pieHeight / 1.5})`
+              `translate(${pieWidth * 2}, ${pieHeight / 1.5})`
             );
 
           // Draw the pie chart

@@ -822,9 +822,14 @@
         updateChartAndCheckboxes(selectedYear);
       });
 
-      var margin = { top: 20, right: 180, bottom: 60, left: 160 },
-        width = 1060 - margin.left - margin.right,
-        height = 350 - margin.top - margin.bottom;
+      let width = window.innerWidth * 0.8,
+        height = window.innerHeight * 0.6,
+        margin = {
+          top: window.innerHeight * 0.05,
+          right: window.innerHeight * 0.1,
+          bottom: window.innerHeight * 0.05,
+          left: window.innerWidth * 0.1,
+        };
 
       var svg = d3
         .select("#my_dataviz")
@@ -899,7 +904,7 @@
       svg
         .append("text")
         .attr("class", "axis-title")
-        .attr("y", height + 40)
+        .attr("y", 0)
         .attr("x", width / 2)
         .style("text-anchor", "middle")
         .style("font-size", "16px")
