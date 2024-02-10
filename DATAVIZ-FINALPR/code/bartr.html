@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <title>Data Visualization</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       #yearSelect {
         padding: 10px;
@@ -15,12 +19,11 @@
         color: #333;
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
         transition: border-color 0.3s, box-shadow 0.3s;
-        border: none; /* Explicitly remove any border */
+        border: none;
       }
 
       #yearSelect:focus {
-        outline: none; /* Remove default focus outline */
-        /* Add a glow effect or other indicator for focus */
+        outline: none;
       }
 
       .dropdown {
@@ -39,10 +42,10 @@
 
       .selection-container {
         display: flex;
-        align-items: center; /* Align vertically */
-        justify-content: start; /* Align horizontally at the start */
-        gap: 10px; /* Space between the dropdowns */
-        padding: 10px; /* Padding around the container */
+        align-items: center;
+        justify-content: start;
+        gap: 10px;
+        padding: 10px;
       }
       .dropdown-select {
         display: flex;
@@ -88,20 +91,29 @@
         display: none;
       }
       .dropdown-list label.unavailable {
-        background-color: #ccc; /* Gray background */
-        color: #767676; /* Dark gray text */
-        pointer-events: none; /* Prevent interactions */
+        background-color: #ccc;
+        color: #767676;
+        pointer-events: none;
+      }
+      .label {
+        font-family: "Roboto";
+      }
+      .axis-title {
+        font-family: "Roboto";
+      }
+      .selectt {
+        font-family: "Roboto";
       }
     </style>
   </head>
   <body>
     <div class="selection-container">
-      <label for="yearSelect">Select :</label>
+      <label for="yearSelect" class="selectt">Select :</label>
       <select id="yearSelect"></select>
 
       <div class="dropdown">
         <div class="dropdown-select">
-          <span>Check Countries</span>
+          <span class="selectt">Check Countries</span>
           <i class="arrow down"></i>
         </div>
         <div class="dropdown-list"></div>
@@ -115,17 +127,17 @@
         {
           country: "EU",
           years: {
-            2008: 1.91,
-            2009: 2.09,
-            2010: 2.17,
-            2011: 2.26,
-            2012: 2.35,
-            2013: 2.41,
-            2014: 2.47,
-            2015: 2.57,
-            2016: 2.6,
-            2017: 2.7,
-            2018: 2.83,
+            2008: "1.91",
+            2009: "2.09",
+            2010: "2.17",
+            2011: "2.26",
+            2012: "2.35",
+            2013: "2.41",
+            2014: "2.47",
+            2015: "2.57",
+            2016: "2.6",
+            2017: "2.7",
+            2018: " 2.83",
             2019: "2.72",
             2020: "2.84",
           },
@@ -714,31 +726,29 @@
         var dropdownList = document.querySelector(".dropdown-list");
         var yearSelect = d3.select("#yearSelect");
 
-        // Populate yearSelect options
         yearSelect
           .selectAll("option")
           .data(years)
           .enter()
           .append("option")
           .text((d) => d)
-          .attr("value", (d) => d);
+          .attr("value", (d) => d)
+          .style("font-family", "Roboto");
 
-        // Update chart and checkboxes when year changes
         yearSelect.on("change", function () {
           selectedYear = d3.select(this).property("value");
           updateChartAndCheckboxes(selectedYear);
         });
         let checkedCount = 0;
-        // Create country checkboxes
         countries.forEach(function (country) {
           var countryData = data.find((d) => d.country === country);
           if (country !== "EU") {
             var label = document.createElement("label");
+            label.style.fontFamily = "Roboto";
             var checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.value = country;
 
-            // Disable checkbox if data is not available
             if (
               countryData &&
               countryData.years[yearSelect.property("value")] === ":"
@@ -752,7 +762,6 @@
 
             // Toggle checkbox and update selected countries list
             label.addEventListener("click", function () {
-              // If the checkbox is not checked and we haven't reached the limit
               if (!checkbox.checked && checkedCount < 12) {
                 checkbox.checked = true;
                 checkedCount++;
@@ -827,7 +836,7 @@
         margin = {
           top: window.innerHeight * 0.05,
           right: window.innerHeight * 0.1,
-          bottom: window.innerHeight * 0.05,
+          bottom: window.innerHeight * 0.1,
           left: window.innerWidth * 0.1,
         };
 
@@ -854,9 +863,15 @@
       svg
         .append("g")
         .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(xScale));
+        .call(d3.axisBottom(xScale))
+        .selectAll("text")
+        .style("font-family", "Roboto");
 
-      svg.append("g").call(d3.axisLeft(yScale));
+      svg
+        .append("g")
+        .call(d3.axisLeft(yScale))
+        .selectAll("text")
+        .style("font-family", "Roboto");
       var gradient = svg
         .append("defs")
         .append("linearGradient")
@@ -899,25 +914,8 @@
         .text((d) => d.value)
         .style("fill", "#333") // Text color
         .style("font-size", "12px")
-        .style("font-weight", "bold");
-
-      svg
-        .append("text")
-        .attr("class", "axis-title")
-        .attr("y", 0)
-        .attr("x", width / 2)
-        .style("text-anchor", "middle")
-        .style("font-size", "16px")
-        .text("Countries");
-      svg
-        .append("text")
-        .attr("class", "axis-title")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -height / 2)
-        .attr("y", -50)
-        .style("text-anchor", "middle")
-        .style("font-size", "16px")
-        .text("% of ICT Personnel in Total Employment");
+        .style("font-weight", "bold")
+        .style("font-family", "Roboto");
 
       function updateChart(year, selectedCountries) {
         selectedCountries.push("EU");
@@ -944,9 +942,15 @@
         svg
           .append("g")
           .attr("transform", "translate(0," + height + ")")
-          .call(d3.axisBottom(xScale));
+          .call(d3.axisBottom(xScale))
+          .selectAll("text")
+          .style("font-family", "Roboto");
 
-        svg.append("g").call(d3.axisLeft(yScale));
+        svg
+          .append("g")
+          .call(d3.axisLeft(yScale))
+          .selectAll("text")
+          .style("font-family", "Roboto");
 
         var gradient = svg
           .append("defs")
@@ -1006,7 +1010,7 @@
           .append("text")
           .attr("class", "axis-title")
           .attr("x", width / 2)
-          .attr("y", height + 50)
+          .attr("y", height + 60)
           .style("text-anchor", "middle")
           .style("font-size", "16px")
           .text("Countries");

@@ -335,7 +335,7 @@ data=[{'country': 'EU',
    'Device purchase: eco-design considered important': 11.4}}]
 
 let width = (window.innerWidth * 1),
-    height = window.innerHeight * 0.8,
+    height = window.innerHeight * 0.7,
     margin = { top: window.innerHeight * 0.05, right:window.innerHeight * 0.1 , bottom: window.innerHeight * 0.05, left: window.innerWidth * 0.05 };
 
 let svg = d3.select("body").append("svg")
@@ -508,7 +508,7 @@ function populateCountryDropdown() {
       // Initial display update
       function updateSVGSize() {
     width = window.innerWidth * 1;
-    height = window.innerHeight * 0.6;
+    height = window.innerHeight * 0.7;
 
     d3.select("svg")
        .attr("width", width)

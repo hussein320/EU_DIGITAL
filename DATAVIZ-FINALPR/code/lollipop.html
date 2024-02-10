@@ -7,6 +7,10 @@
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       .tooltip {
         position: absolute;
@@ -18,6 +22,7 @@
         border-radius: 8px;
         pointer-events: none;
         opacity: 0;
+        font-family: "roboto";
       }
 
       .country-path {
@@ -652,24 +657,33 @@
       svg
         .append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .style("font-family", "Roboto");
 
       let y = d3.scaleBand().range([height, 0]).domain(countries).padding(1);
 
-      svg.append("g").attr("class", "y-axis").call(d3.axisLeft(y));
+      svg
+        .append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(y))
+        .selectAll("text")
+        .style("font-family", "Roboto");
       svg
         .append("text")
         .attr("text-anchor", "end")
         .attr("x", width / 2)
         .attr("y", height + margin.top - 5)
-        .text("Percentage");
+        .text("Percentage")
+        .style("font-family", "Roboto");
       svg
         .append("text")
         .attr("text-anchor", "end")
         .attr("transform", "rotate(-90)")
         .attr("y", -margin.left / 2)
         .attr("x", -height / 2)
-        .text("Countries");
+        .text("Countries")
+        .style("font-family", "Roboto");
       //   function resize() {
       //     width = window.innerWidth * 0.4;
       //     height = window.innerHeight * 0.8;
@@ -708,25 +722,19 @@
           .sort((a, b) => b.value - a.value);
         const maxValue = d3.max(yearData, (d) => d.value);
 
-        // Update the x scale's domain with the new maximum value
         x.domain([0, maxValue]);
 
-        // Transition the x-axis to the new scale
         svg
           .select(".x-axis")
           .transition()
           .duration(1000)
           .call(d3.axisBottom(x));
-        // Update y scale's domain with the new order
+
         y.domain(yearData.map((d) => d.country));
 
         // Transition y-axis
-        svg
-          .select(".y-axis")
-          .transition() // Start a transition
-          .duration(1000) // Set the duration of the transition
-          .call(d3.axisLeft(y))
-          .style("font-family", "cinzel");
+        svg.select(".y-axis").transition().duration(1000).call(d3.axisLeft(y));
+
         let lines = svg.selectAll(".line").data(yearData, (d) => d.country);
 
         // Update existing lines
@@ -737,7 +745,7 @@
           .attr("y1", (d) => y(d.country) + y.bandwidth() / 2)
           .attr("x2", (d) => x(d.value))
           .attr("y2", (d) => y(d.country) + y.bandwidth() / 2)
-          .attr("stroke", (d) => (d.country === "EU" ? "red" : "black")) // Different color for EU
+          .attr("stroke", (d) => (d.country === "EU" ? "#FF5733" : "black"))
           .attr("stroke-width", 2)
           .style("stroke-dasharray", "3, 3");
 
@@ -748,14 +756,14 @@
           .classed("line", true)
           .attr("x1", (d) => x(0))
           .attr("y1", (d) => y(d.country) + y.bandwidth() / 2)
-          .attr("x2", (d) => x(0)) // Start at x(0)
+          .attr("x2", (d) => x(0))
           .attr("y2", (d) => y(d.country) + y.bandwidth() / 2)
           .attr("stroke", (d) => (d.country === "EU" ? "#FF5733" : "black"))
           .attr("stroke-width", (d) => (d.country === "EU" ? 2 : 1.5))
-          .style("stroke-dasharray", "3, 3") // For a dashed line effect
+          .style("stroke-dasharray", "3, 3")
           .transition()
           .duration(1000)
-          .attr("x2", (d) => x(d.value)); // Animate to x(d.value)
+          .attr("x2", (d) => x(d.value));
         // Join the data to the circles
         let circles = svg.selectAll("circle").data(yearData, (d) => d.country);
 
@@ -794,14 +802,12 @@
           .classed("EUcircle", (d) => (d.country === "EU" ? true : false))
           .attr("d", d3.symbol().type(d3.symbolStar))
           .on("mouseover", function (event, d) {
-            // Calculate the SVG's bounding box
             const svgRect = svg.node().getBoundingClientRect();
 
-            // Adjust the tooltip position by considering the SVG's bounding box
             tooltip.transition().duration(200).style("opacity", 0.9);
             tooltip
               .html(d.country + ": " + d.value + "%")
-              .style("left", event.clientX - svgRect.left + 80 + "px") // 20 pixels to the right
+              .style("left", event.clientX - svgRect.left + 80 + "px")
               .style(
                 "top",
                 event.clientY - svgRect.top + window.scrollY + "px"
@@ -866,15 +872,13 @@
       document
         .getElementById("prevYear")
         .addEventListener("click", function () {
-          // Check if the previous index is within the array bounds
           if (currentYearIndex > 0) {
-            currentYearIndex--; // Move to the previous index
-            currentYear = availableYears[currentYearIndex]; // Update the currentYear
+            currentYearIndex--;
+            currentYear = availableYears[currentYearIndex];
             updateVisualizationForYear(currentYear);
           }
         });
 
-      // Initialize the visualization with the current year
       updateVisualizationForYear(currentYear);
     </script>
   </body>

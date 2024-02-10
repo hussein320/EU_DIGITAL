@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>D3 Line Chart with Rectangles</title>
+    <title>Line Chart</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
     <style>
         body, html {
             margin: 0;
@@ -28,10 +32,10 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     padding: 10px;
-    display: flex; /* Use flexbox */
-    align-items: center; /* Vertically center the contents */
+    display: flex; 
+    align-items: center; 
     justify-content: space-between;
- /* Place content and arrow at opposite ends */
+
 }
 
 .arrow.down {
@@ -41,12 +45,11 @@
     padding: 3px;
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
-    margin-left: auto; /* Push the arrow to the end */
+    margin-left: auto; 
 }
 
-/* Make sure the text and arrow are placed correctly */
 .select-box > span {
-    white-space: nowrap; /* Prevent the text from wrapping */
+    white-space: nowrap; 
 }
 
         .options-container {
@@ -95,13 +98,13 @@
     position: absolute;
     text-align: center;
     padding: 12px;
-    font-size: 16px; /* Slightly increased font size */
+    font-size: 16px; 
     border: 1px solid #ccc;
     border-radius: 8px;
     pointer-events: none;
     font-weight: bold;
-    color: #ffffff; /* Adjust text color to improve contrast */
-
+    color: #ffffff;
+    font-family: "Roboto";
     box-shadow: none;
     text-shadow: none;
 }
@@ -125,23 +128,25 @@ circle:not(.legend-circle).hover-shadow {
     animation: shadow-grow 0.5s forwards;
 }
 
-
+#selectt{
+    font-family: "Roboto";
+}
     </style>
 </head>
 <body>
     <div class="country-selector">
         <div class="select-box">
-            <span>Select Countries</span> <!-- Text in its own span -->
-            <span class="arrow down"></span> <!-- Arrow in its own span -->
+            <span id="selectt">Select Countries</span> 
+            <span class="arrow down"></span> 
             <div class="options-container">
-                <!-- Country options will be dynamically populated here -->
+               
             </div>
         </div>
     </div>
     
     </script>
     <script>
-        // Define your colors array
+      
         let data;
         const colors = [
             "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
@@ -165,19 +170,16 @@ circle:not(.legend-circle).hover-shadow {
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     let  currentcountry=["EU"];
-        // Load the data from the CSV file
+        
         d3.csv("https://raw.githubusercontent.com/hussein320/EU_DIGITAL/main/lineGDP/data/linegdp.csv").then(function(rawData) {
-            // Process the data
+          
             data = processData(rawData);
             let countries = Array.from(new Set(data.map(d => d.country))).sort();
-            
-            // Populate the select box with country options
             populateSelectBox(countries);
             currentcountry=["EU"]
             update(currentcountry, data);
         });
     
-        // Function to transform raw CSV data into a suitable structure for D3
         function processData(rawData) {
             let data = [];
             rawData.forEach(d => {
@@ -187,7 +189,7 @@ circle:not(.legend-circle).hover-shadow {
                         data.push({
                             country: country,
                             year: +year,
-                            value: +d[year] || 0 // Convert to number, use 0 for missing data
+                            value: +d[year] || 0 
                         });
                     }
                 });
@@ -202,6 +204,7 @@ function populateSelectBox(countries) {
         if(country ==="EU"){return}
         let option = document.createElement("div");
         option.classList.add("option");
+        option.style.fontFamily = 'Roboto';
         option.innerHTML = `<label><input type="checkbox" value="${country}" /> ${country}</label>`;
         optionsContainer.appendChild(option);
 
@@ -260,7 +263,6 @@ document.body.addEventListener("click", function() {
 
 
 function update(selectedCountries, data) {
-    console.log(selectedCountries)
     if (!selectedCountries.includes("EU")) {
         selectedCountries.unshift("EU")
     }
@@ -278,15 +280,19 @@ function update(selectedCountries, data) {
 
     svg.append("g")
         .attr("transform", `translate(0, ${height - margin.top - margin.bottom})`)
-        .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%Y")));
-
+        .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%Y")))
+        .selectAll("text") 
+    .style("font-family", "Roboto");
     svg.append("g")
-        .call(d3.axisLeft(yScale));
+        .call(d3.axisLeft(yScale))
+        .selectAll("text") 
+    .style("font-family", "Roboto");
 
-    const line = d3.line()
-        .x(d => xScale(new Date(d.year, 0)))
-        .y(d => yScale(d.value))
-        .curve(d3.curveMonotoneX); 
+        const line = d3.line()
+    .defined(d => d.value != null && d.value !== 0) // Check that the value is not null and not 0
+    .x(d => xScale(new Date(d.year, 0)))
+    .y(d => yScale(d.value))
+    .curve(d3.curveMonotoneX);
 
         const legend = svg.append('g')
     .attr('class', 'legend')
@@ -301,11 +307,12 @@ function update(selectedCountries, data) {
     svg
         .append("text")
         .attr("class", "axis-title")
-        .attr("y", height-100)
-        .attr("x", (width / 2)-100)
+        .attr("y", height-110)
+        .attr("x", (width / 2)-90)
         .style("text-anchor", "middle")
         .style("font-size", "16px")
-        .text("Years");
+        .text("Years")
+        .style("font-family","Roboto");
       svg
         .append("text")
         .attr("class", "axis-title")
@@ -314,7 +321,8 @@ function update(selectedCountries, data) {
         .attr("y", -50)
         .style("text-anchor", "middle")
         .style("font-size", "16px")
-        .text("% of ICT Total GDP");
+        .text("% of ICT Total GDP")
+        .style("font-family","Roboto");
 
     legendItem.append('circle')
     .attr('class', 'legend-circle')
@@ -326,7 +334,8 @@ function update(selectedCountries, data) {
     legendItem.append('text')
         .attr('x', 20)
         .attr('y', 15)
-        .text(country);
+        .text(country)
+        .style("font-family","Roboto");
         
         let selectedCountry = null;
 const glowEffect = "0 0 5px white, 0 0 5px blue";
@@ -343,7 +352,6 @@ function highlightLine(country) {
         .style('opacity', 1);
 }
 
-// Function to reset highlight
 function resetHighlight() {
     svg.selectAll('path').style('opacity', 1);
     svg.selectAll('circle').style('opacity', 1);
@@ -355,7 +363,6 @@ legendItem.on('mouseover', function() {
         const hoveredCountry = country; 
         highlightLine(hoveredCountry);
 
-        // Correct the selection to directly select the text elements
         svg.selectAll(`.text-${hoveredCountry.replace(/\s/g, '')}`)
             .style('visibility', 'visible');
     }
@@ -365,7 +372,6 @@ legendItem.on('mouseout', function() {
     if (selectedCountry === null) { 
         resetHighlight();
 
-        // Correct the selection to directly select the text elements
         svg.selectAll(`.text-${country.replace(/\s/g, '')}`)
             .style('visibility', 'hidden');
     }
@@ -391,13 +397,12 @@ function toggleSelection(country) {
     let color = colors[index % colors.length];
 
     svg.append("path")
-        .datum(countryData)
-        .attr("fill", "none")
-        .classed("linel",true)
-        .attr("stroke", color)
-        .attr("stroke-width", 2)
-        .attr("d", line);
-
+    .datum(countryData.filter(d => d.year && d.year !== 0)) // Filter data before binding
+    .attr("fill", "none")
+    .classed("linel", true)
+    .attr("stroke", color)
+    .attr("stroke-width", 2)
+    .attr("d", line);
        svg.selectAll(".dot-" + country.replace(/\s/g, ''))
         .data(countryData)
         .enter().append("circle")
@@ -410,10 +415,12 @@ function toggleSelection(country) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", 1);
+                tooltip.style.fontFamily = 'Roboto';
             tooltip.html(`${d.country}, ${d.year}<br>% of ICT sector: ${d.value.toFixed(2)}%`)
                 .style("background-color", color)
                 .style("left",(event.pageX - 80) + "px")
-                .style("top", (event.pageY -88) + "px");
+                .style("top", (event.pageY -88) + "px")
+                .style("font-family", "Roboto");
         })
         .on("mouseout", () => {
             tooltip.transition()
@@ -425,7 +432,7 @@ function toggleSelection(country) {
         .data(countryData)
         .enter().append('text')
         .attr("x", d => xScale(new Date(d.year, 0)))
-        .attr("y", d => yScale(d.value) + 20) // Adjust position as needed
+        .attr("y", d => yScale(d.value) + 20) 
         .text(d => d.value)
         .style("visibility", "hidden")
         .attr("class", "text-" + country.replace(/\s/g, ''))
@@ -447,7 +454,8 @@ function toggleSelection(country) {
             .style("opacity", .9);
         tooltip.html(`Year: ${d.year}<br/>Value: ${d.value}`)
             .style("left", (event.pageX) + "px")
-            .style("top", (event.pageY - 28) + "px");
+            .style("top", (event.pageY - 28) + "px")
+            .style("font-family","Roboto");
     }
 
     function hideTooltip() {
