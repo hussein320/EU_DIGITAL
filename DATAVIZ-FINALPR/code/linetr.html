@@ -289,7 +289,7 @@ function update(selectedCountries, data) {
     .style("font-family", "Roboto");
 
         const line = d3.line()
-    .defined(d => d.value != null && d.value !== 0) // Check that the value is not null and not 0
+    .defined(d => d.value != null && d.value !== 0) 
     .x(d => xScale(new Date(d.year, 0)))
     .y(d => yScale(d.value))
     .curve(d3.curveMonotoneX);
@@ -393,16 +393,34 @@ function toggleSelection(country) {
 }
 
     selectedCountries.forEach((country, index) => {
-    let countryData = data.filter(d => d.country === country && d.value > 0);
+    let countryDataPath = data.filter(d => d.country === country);
+    let countryData = countryDataPath.filter(d => d.value !== 0)
     let color = colors[index % colors.length];
-
+    dataToPlot = []
+    for(var idx in countryDataPath){
+        if(countryDataPath[idx].value === 0){
+            svg.append("path")
+            .datum(dataToPlot) // Filter data before binding
+            .attr("fill", "none")
+            .classed("linel", true)
+            .attr("stroke", color)
+            .attr("stroke-width", 2)
+            .attr("d", line);
+            dataToPlot = []
+        }
+        else{
+          dataToPlot.push(countryDataPath[idx])
+        }
+    }
     svg.append("path")
-    .datum(countryData.filter(d => d.year && d.year !== 0)) // Filter data before binding
-    .attr("fill", "none")
-    .classed("linel", true)
-    .attr("stroke", color)
-    .attr("stroke-width", 2)
-    .attr("d", line);
+            .datum(dataToPlot) // Filter data before binding
+            .attr("fill", "none")
+            .classed("linel", true)
+            .attr("stroke", color)
+            .attr("stroke-width", 2)
+            .attr("d", line);
+    
+
        svg.selectAll(".dot-" + country.replace(/\s/g, ''))
         .data(countryData)
         .enter().append("circle")

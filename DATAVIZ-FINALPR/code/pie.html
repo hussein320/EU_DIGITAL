@@ -8,6 +8,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
     />
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body,
       html {
@@ -15,7 +19,9 @@
         margin-top: 0;
         padding: 0;
       }
-
+      text {
+        font-family: "Roboto";
+      }
       .tooltip {
         border: 1px solid #ddd; /* Light grey border */
         background-color: #f9f9f9; /* Light background */
@@ -973,7 +979,8 @@
             .text(function (d) {
               return d.data.gender;
             })
-            .style("text-anchor", "middle");
+            .style("text-anchor", "middle")
+            .style("font-family", "Roboto");
 
           // // Dynamic title based on the selected year and country
           // svg.append("text")
